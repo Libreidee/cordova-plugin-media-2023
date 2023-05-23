@@ -700,6 +700,9 @@ BOOL keepAvAudioSessionAlwaysActive = NO;
                     [weakSelf.avSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionMixWithOthers error:nil];
                 // }
 
+                // imposta lo speaker come default output e non la capsula auricolare
+                [weakSelf.avSession overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
+
                 if (![weakSelf.avSession setActive:YES error:&error]) {
                     // other audio with higher priority that does not allow mixing could cause this to fail
                     errorMsg = [NSString stringWithFormat:@"Unable to record audio: %@", [error localizedFailureReason]];
